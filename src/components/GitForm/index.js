@@ -28,6 +28,7 @@ const validate = values => {
   return errors;
 };
 
+// eslint-disable-next-line react/prop-types
 const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
   <div>
     <input {...input} placeholder={label} type={type} className="form-control" />
@@ -42,7 +43,7 @@ class GitForm extends Component {
     this.props.loadFromQueryParams(); // Get Query Params on component mount
   }
   render() {
-    const { handleSubmit, pristine, submitting } = this.props;
+    const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit} className="container">
         <div className="row">
