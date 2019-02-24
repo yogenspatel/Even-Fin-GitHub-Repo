@@ -31,7 +31,12 @@ const SearchResults = ({ results } = null) => {
     );
   }
 
-  return <div>No Search Results found</div>;
+  return (
+    <div className="container search-container">
+      <hr />
+      <p className="col text-center alert-light">No Search Results found</p>
+    </div>
+  );
 };
 
 export default SearchResults;

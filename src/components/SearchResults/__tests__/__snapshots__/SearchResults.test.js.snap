@@ -1,8 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchResults Match Snapshot 1`] = `
-<div>
-  No Search Results found
+<div
+  className="container search-container"
+>
+  <hr />
+  <p
+    className="col text-center alert-light"
+  >
+    No Search Results found
+  </p>
 </div>
 `;
 
