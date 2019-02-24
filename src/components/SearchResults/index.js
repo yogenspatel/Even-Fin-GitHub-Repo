@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.scss';
 
 const SearchResults = ({ results } = null) => {
   if (results && results.length) {
@@ -16,7 +17,7 @@ const SearchResults = ({ results } = null) => {
           <p className="h5">{item.stargazers_count}</p>
         </div>
         <div className="col">
-          <span className="alert-light">Licence</span>
+          <span className="alert-light">License</span>
           {item.license && item.license.name && <p className="h5">{item.license.name}</p>}
         </div>
       </div>

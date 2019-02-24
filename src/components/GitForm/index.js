@@ -5,6 +5,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
+import './style.scss';
 
 const validate = values => {
   const errors = {};
@@ -41,8 +42,8 @@ let GitForm = props => {
       </div>
       <div className="row">
         <div className="form-group col">
-          <label>Licence</label>:
-          <Field name="licence" component="select" className="custom-select custom-select-lg mb-3">
+          <label>License</label>:
+          <Field name="license" component="select" className="custom-select custom-select-lg mb-3">
             <option value="mit">MIT</option>
             <option value="isc">ISC</option>
             <option value="apache">Apache</option>
@@ -73,6 +74,8 @@ GitForm.defaultProps = {
   pristine: false,
   submitting: false,
 };
+
+export { GitForm };
 
 GitForm = reduxForm({
   form: 'gitform',

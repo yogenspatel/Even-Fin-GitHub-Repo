@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer Match Snapshot 1`] = `
+<footer>
+  <p>
+    © 
+    2019
+     Even Financial, Inc. - CONFIDENTIAL
+  </p>
+</footer>
+`;

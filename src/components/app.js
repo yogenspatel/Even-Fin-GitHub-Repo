@@ -14,7 +14,7 @@ class App extends Component {
     console.log(values);
     const url = `?searchText=${values.searchText}${values.stars ? `&stars=${values.stars}` : ""}${
       values.hasForked ? "&fork=true" : ""
-    }&licence=${values.licence ? values.licence : "mit"}`;
+    }&license=${values.license ? values.license : "mit"}`;
     history.push(url);
     // TODO: Clear Form Values
     // Clear the search results and fetch again

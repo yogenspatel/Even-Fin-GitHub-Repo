@@ -1,0 +1,14 @@
+.custom-checkbox {
+    margin-top: 50px;
+}
+.custom-checkbox input {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    padding: 10px;
+}
+
+.custom-checkbox label {
+    margin-left: 10px;
+}

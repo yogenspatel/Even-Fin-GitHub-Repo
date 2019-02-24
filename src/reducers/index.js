@@ -1,3 +1,4 @@
+import { createStore } from "redux";
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 import searchReducer from './search';
@@ -7,4 +8,9 @@ const rootReducer = combineReducers({
   searchResults: searchReducer
 });
 
+function configureStore(state = {}) {
+  return createStore(rootReducer,state);
+}
+
+export { configureStore };
 export default rootReducer;
