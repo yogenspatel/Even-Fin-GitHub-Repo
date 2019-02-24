@@ -1,18 +1,19 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-// FormCode.js
 
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import PropTypes from 'prop-types';
-import './style.scss';
+import React, { Component } from "react";
+import { Field, reduxForm } from "redux-form";
+import PropTypes from "prop-types";
+// import * as actions from "../../actions/index";
+// import history from "../../utitilies/history";
+import "./style.scss";
 
 const validate = values => {
   const errors = {};
   if (!values.searchText) {
-    errors.searchText = 'Required';
+    errors.searchText = "Required";
   } else if (values.searchText.length < 2) {
-    errors.searchText = 'Minimum be 2 characters or more';
+    errors.searchText = "Minimum be 2 characters or more";
   }
   return errors;
 };
@@ -26,60 +27,80 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
   </div>
 );
 
-// eslint-disable-next-line import/no-mutable-exports
-let GitForm = props => {
-  const { handleSubmit, pristine, submitting } = props;
+class GitForm extends Component {
+  /* handleFormSubmit(formProps) {
+    console.log("Form Props:: ", formProps);
+    console.log(this.props);
+    this.props.performSearch(formProps);
+    const url = `?searchText=${formProps.searchText}${
+      formProps.stars ? `&stars=${formProps.stars}` : ""
+    }${formProps.hasForked ? "&fork=true" : ""}&license=${
+      formProps.license ? formProps.license : "mit"
+    }`;
+    history.push(url);
+    // TODO: Clear Form Values
+    // Clear the search results and fetch again
+  } */
 
-  return (
-    <form onSubmit={handleSubmit} className="container">
-      <div className="row">
-        <div className="form-group col">
-          <Field name="searchText" component={renderField} label="Search Text" />
+  render() {
+    const { handleSubmit, pristine, submitting } = this.props;
+    return (
+      <form onSubmit={handleSubmit} className="container">
+        <div className="row">
+          <div className="form-group col">
+            <Field name="searchText" component={renderField} label="Search Text" />
+          </div>
+          <div className="form-group col">
+            <Field name="stars" component={renderField} label="stars" />
+          </div>
         </div>
-        <div className="form-group col">
-          <Field name="stars" component={renderField} label="stars" />
+        <div className="row">
+          <div className="form-group col">
+            <label>License</label>:
+            <Field
+              name="license"
+              component="select"
+              className="custom-select custom-select-lg mb-3"
+            >
+              <option value="mit">MIT</option>
+              <option value="isc">ISC</option>
+              <option value="apache">Apache</option>
+              <option value="gpl">GPL</option>
+            </Field>
+          </div>
+          <div className="col custom-control custom-checkbox">
+            <Field name="hasForked" component="input" type="checkbox" />{" "}
+            <label>Include Forked</label>
+          </div>
         </div>
-      </div>
-      <div className="row">
-        <div className="form-group col">
-          <label>License</label>:
-          <Field name="license" component="select" className="custom-select custom-select-lg mb-3">
-            <option value="mit">MIT</option>
-            <option value="isc">ISC</option>
-            <option value="apache">Apache</option>
-            <option value="gpl">GPL</option>
-          </Field>
+        <div className="col text-center form-group">
+          <button type="submit" disabled={pristine || submitting} className="btn btn-primary">
+            SEARCH
+          </button>
         </div>
-        <div className="col custom-control custom-checkbox">
-          <Field name="hasForked" component="input" type="checkbox" /> <label>Include Forked</label>
-        </div>
-      </div>
-      <div className="col text-center form-group">
-        <button type="submit" disabled={pristine || submitting} className="btn btn-primary">
-          SEARCH
-        </button>
-      </div>
-    </form>
-  );
-};
+      </form>
+    );
+  }
+}
 
 GitForm.propTypes = {
   handleSubmit: PropTypes.func,
+  performSearch: PropTypes.func,
   pristine: PropTypes.bool,
-  submitting: PropTypes.bool,
+  submitting: PropTypes.bool
 };
 
 GitForm.defaultProps = {
   handleSubmit: () => {},
+  performSearch: () => {},
   pristine: false,
-  submitting: false,
+  submitting: false
 };
 
-export { GitForm };
+export { GitForm, validate };
 
-GitForm = reduxForm({
-  form: 'gitform',
+export default reduxForm({
+  form: "gitform",
+  fields: ["searchText", "stars", "license", "hasForked"],
   validate
 })(GitForm);
-
-export default GitForm;

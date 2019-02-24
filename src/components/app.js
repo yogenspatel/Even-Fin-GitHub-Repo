@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Header from './Header';
-import Footer from './Footer';
-import GitForm from './GitForm';
-import SearchResults from './SearchResults';
-import { performSearch } from '../actions';
-import history from '../utitilies/history';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Header from "./Header";
+import Footer from "./Footer";
+import GitForm from "./GitForm";
+import SearchResults from "./SearchResults";
+import { performSearch } from "../actions";
+import history from "../utitilies/history";
 
 class App extends Component {
   submit = values => {
@@ -35,12 +35,12 @@ class App extends Component {
 
 App.propTypes = {
   performSearch: PropTypes.func,
-  searchResults: PropTypes.array,
+  searchResults: PropTypes.array
 };
 
 App.defaultProps = {
   performSearch: () => {},
-  searchResults: [],
+  searchResults: []
 };
 
 function mapStatetoProps(state) {
@@ -51,5 +51,5 @@ function mapStatetoProps(state) {
 
 export default connect(
   mapStatetoProps,
-  { performSearch },
+  { performSearch }
 )(App);

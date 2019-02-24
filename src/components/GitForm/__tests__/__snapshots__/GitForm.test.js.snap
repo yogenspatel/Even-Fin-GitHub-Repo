@@ -1,23 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Footer Match Snapshot 1`] = `
-<Connect(Form(GitForm))
-  destroyOnUnmount={true}
-  enableReinitialize={false}
-  forceUnregisterOnUnmount={false}
-  form="gitform"
-  getFormState={[Function]}
-  keepDirtyOnReinitialize={false}
-  persistentSubmitErrors={false}
-  pure={true}
-  shouldAsyncValidate={[Function]}
-  shouldValidate={[Function]}
-  touchOnBlur={true}
-  touchOnChange={false}
-  validate={[Function]}
-/>
-`;
-
 exports[`Git Form renders without crashing 1`] = `
 <form
   className="container"

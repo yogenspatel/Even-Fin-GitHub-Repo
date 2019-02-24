@@ -1,12 +1,12 @@
-import React from 'react';
-import './style.scss';
+import React from "react";
+import "./style.scss";
 
 const SearchResults = ({ results } = null) => {
   if (results && results.length) {
     const resultsItems = results.map(item => (
       <div className="row" key={item.id}>
         <div className="col-6">
-          <a href={item.url} target='_blank'>
+          <a href={item.url} target="_blank" rel="noopener noreferrer">
             {item.full_name}
           </a>
           {item.fork && <div className="fork">Forked</div>}
@@ -14,11 +14,11 @@ const SearchResults = ({ results } = null) => {
         </div>
         <div className="col">
           <span className="alert-light">Stars:</span>
-          <p className="h5">{item.stargazers_count}</p>
+          <p className="h5 stars">{item.stargazers_count}</p>
         </div>
         <div className="col">
           <span className="alert-light">License</span>
-          {item.license && item.license.name && <p className="h5">{item.license.name}</p>}
+          {item.license && item.license.name && <p className="h5 license">{item.license.name}</p>}
         </div>
       </div>
     ));

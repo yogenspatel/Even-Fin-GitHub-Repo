@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header Match Snapshot 1`] = `
+exports[`Matches Header Snapshot 1`] = `
 <header
   className="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar"
 >
@@ -9,7 +9,7 @@ exports[`Header Match Snapshot 1`] = `
     href="#"
   >
     <img
-      src="../../../assets/logo.png"
+      src="logo.png"
     />
   </a>
 </header>
