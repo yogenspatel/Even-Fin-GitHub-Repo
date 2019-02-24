@@ -69,12 +69,14 @@ export function performSearchUsingThunk(queryParams) {
 
 export function loadFromQueryParams() {
   const search = window.location.search.substring(1);
-  const searchParamObj = JSON.parse(
-    `{"${decodeURI(search)
-      .replace(/"/g, '\\"')
-      .replace(/&/g, '","')
-      .replace(/=/g, '":"')}"}`
-  );
+  const searchParamObj = search
+    ? JSON.parse(
+        `{"${decodeURI(search)
+          .replace(/"/g, '\\"')
+          .replace(/&/g, '","')
+          .replace(/=/g, '":"')}"}`
+      )
+    : {};
   return {
     type: GET_QUERY_PARAMS,
     payload: searchParamObj
