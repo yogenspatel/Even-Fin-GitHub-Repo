@@ -1,5 +1,9 @@
-import React from 'react';
-import './style.scss';
+/**
+ * Renders Footer component
+ */
+
+import React from "react";
+import "./style.scss";
 
 const Footer = () => (
   <footer>

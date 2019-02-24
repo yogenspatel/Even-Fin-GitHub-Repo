@@ -12,7 +12,7 @@ class App extends Component {
   submit = values => {
     this.props.performSearch(values);
     const url = `?searchText=${values.searchText}${values.stars ? `&stars=${values.stars}` : ""}${
-      values.hasForked ? "&fork=true" : ""
+      values.fork ? "&fork=true" : ""
     }&license=${values.license ? values.license : "mit"}`;
     history.push(url);
     // TODO: Clear Form Values
@@ -25,7 +25,9 @@ class App extends Component {
         <Header />
         <h1 className="heading container display-4">Even Financial GitHub Repository Search</h1>
         <GitForm onSubmit={this.submit} />
-        {this.props.searchResults && <SearchResults results={this.props.searchResults} />}
+        {this.props.searchResults && this.props.searchResults.length && (
+          <SearchResults results={this.props.searchResults} />
+        )}
         <Footer />
       </div>
     );

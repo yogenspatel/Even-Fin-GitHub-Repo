@@ -2,6 +2,7 @@
 import Axios from "axios";
 
 export const PERFORM_SEARCH = "PERFORM_SEARCH";
+export const GET_QUERY_PARAMS = "GET_QUERY_PARAMS";
 const GitSearchBaseURL = "https://api.github.com/search/repositories?q=";
 export const LOADING_STATUS = {
   IN_PROGRESS: "IN_PROGRESS",
@@ -34,7 +35,7 @@ function setError(error) {
 export function performSearch(queryParams) {
   const url = `${GitSearchBaseURL}${queryParams.searchText}${
     queryParams.stars ? `+stars:${queryParams.stars}` : ""
-  }${queryParams.hasForked ? "+fork:true" : ""}+license:${
+  }${queryParams.fork ? "+fork:true" : ""}+license:${
     queryParams.license ? queryParams.license : "mit"
   }`;
   const request = Axios.get(url);
@@ -48,7 +49,7 @@ export function performSearch(queryParams) {
 export function performSearchUsingThunk(queryParams) {
   const url = `${GitSearchBaseURL}${queryParams.searchText}${
     queryParams.stars ? `+stars:${queryParams.stars}` : ""
-  }${queryParams.hasForked ? "+fork:true" : ""}+license:${
+  }${queryParams.fork ? "+fork:true" : ""}+license:${
     queryParams.license ? queryParams.license : "mit"
   }`;
 
@@ -63,5 +64,19 @@ export function performSearchUsingThunk(queryParams) {
         dispatch(setLoadingStatus(LOADING_STATUS.ERROR));
         dispatch(setError(error));
       });
+  };
+}
+
+export function loadFromQueryParams() {
+  const search = window.location.search.substring(1);
+  const searchParamObj = JSON.parse(
+    `{"${decodeURI(search)
+      .replace(/"/g, '\\"')
+      .replace(/&/g, '","')
+      .replace(/=/g, '":"')}"}`
+  );
+  return {
+    type: GET_QUERY_PARAMS,
+    payload: searchParamObj
   };
 }
