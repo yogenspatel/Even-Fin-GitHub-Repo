@@ -27,7 +27,7 @@ export default [
     },
     html_url: "https://github.com/source4code/repo",
     description: "This repository contains all the source code for http://www.source4code.info",
-    fork: false,
+    fork: true,
     url: "https://api.github.com/repos/source4code/repo",
     forks_url: "https://api.github.com/repos/source4code/repo/forks",
     keys_url: "https://api.github.com/repos/source4code/repo/keys{/key_id}",

@@ -28,20 +28,6 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
 );
 
 class GitForm extends Component {
-  /* handleFormSubmit(formProps) {
-    console.log("Form Props:: ", formProps);
-    console.log(this.props);
-    this.props.performSearch(formProps);
-    const url = `?searchText=${formProps.searchText}${
-      formProps.stars ? `&stars=${formProps.stars}` : ""
-    }${formProps.hasForked ? "&fork=true" : ""}&license=${
-      formProps.license ? formProps.license : "mit"
-    }`;
-    history.push(url);
-    // TODO: Clear Form Values
-    // Clear the search results and fetch again
-  } */
-
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
     return (

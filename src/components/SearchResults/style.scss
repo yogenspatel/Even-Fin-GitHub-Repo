@@ -1,36 +1,39 @@
+@import '../../assets/stylesheets/colors';
+
 .search-container {
     margin: 50px auto;
     overflow-y: scroll;
+    .text-center {
+        margin-top: 50px;
+    }
 }
 
-.search-container .text-center {
-    margin-top: 50px;
-}
-
-.search-results .row {
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-}
-
-.search-results .row .col-6 .alert-light {
-    padding-top: 15px;
-    margin-bottom: 10px;
-}
-
-.search-results .row .col:first-child {
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-}
-
-.search-results .row .col-6 a, .search-results .row .col span {
-    margin-top: 10px;
-    display: block;
+.search-results {
+    .row {
+        border: 1px solid $grey;
+        margin-bottom: 10px;
+    }
+    .row {
+        .col-sm-9 {
+            padding-top: 10px;
+            .alert-light {
+                padding-top: 15px;
+                margin-bottom: 10px;
+            }
+        }
+        .col {
+            &:nth-child(2n) {
+                border-left: 1px solid $grey;
+                border-right: 1px solid $grey;
+            }
+        }
+    }    
 }
 
 .forked {
     width: 70px;
     padding: 1px 10px;
     float: right;
-    background-color: #007bff;
-    color: #fff;
+    background-color: $blue;
+    color: $white;
 }

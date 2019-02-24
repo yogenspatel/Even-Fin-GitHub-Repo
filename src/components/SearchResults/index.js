@@ -5,7 +5,7 @@ const SearchResults = ({ results } = null) => {
   if (results && results.length) {
     const resultsItems = results.map(item => (
       <div className="row" key={item.id}>
-        <div className="col-6">
+        <div className="col-sm-9">
           <a href={item.url} target="_blank" rel="noopener noreferrer">
             {item.full_name}
           </a>

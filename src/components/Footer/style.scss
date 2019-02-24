@@ -1,5 +1,7 @@
+@import '../../assets/stylesheets/colors';
+
 footer {
-    background-color: #4388c4;
+    background-color: $blue;
     height: 48px;
     position: fixed;
     width: 100%;
@@ -9,6 +11,6 @@ footer {
 footer p {
     margin: auto;
     width: 325px;
-    color: #fff;
+    color: $white;
     padding: 10px 0 0 0;
 }

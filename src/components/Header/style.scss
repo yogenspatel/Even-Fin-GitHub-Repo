@@ -1,9 +1,11 @@
+@import '../../assets/stylesheets/colors';
+
 header {
-    background-color: #4388c4;
+    background-color: $blue;
     height: 48px;
-}
-header img {
-    width: 100px;
+    img {
+        width: 100px;
+    }
 }
 
 .heading {

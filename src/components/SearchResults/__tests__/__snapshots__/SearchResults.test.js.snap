@@ -24,7 +24,7 @@ exports[`SearchResults with mock data 1`] = `
       key="20132937"
     >
       <div
-        className="col-6"
+        className="col-sm-9"
       >
         <a
           href="https://api.github.com/repos/source4code/repo"
@@ -73,7 +73,7 @@ exports[`SearchResults with mock data 1`] = `
       key="30713379"
     >
       <div
-        className="col-6"
+        className="col-sm-9"
       >
         <a
           href="https://api.github.com/repos/andersao/l5-repository"

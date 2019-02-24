@@ -41,3 +41,9 @@ it("SearchResults License name", () => {
   const wrapper = shallow(<SearchResults {...props} />);
   expect(wrapper.find(".license").text()).toEqual(SearchMockData2[0].license.name);
 });
+
+it("SearchResults Fork Yes", () => {
+  const props = { results: SearchMockData2 };
+  const wrapper = shallow(<SearchResults {...props} />);
+  expect(wrapper.find(".forked").length).toBe(1);
+});
