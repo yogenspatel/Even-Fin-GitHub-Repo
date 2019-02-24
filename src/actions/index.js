@@ -67,8 +67,8 @@ export function performSearchUsingThunk(queryParams) {
   };
 }
 
-export function loadFromQueryParams() {
-  const search = window.location.search.substring(1);
+export function loadFromQueryParams(searchParams) {
+  const search = searchParams || window.location.search.substring(1);
   const searchParamObj = search
     ? JSON.parse(
         `{"${decodeURI(search)
