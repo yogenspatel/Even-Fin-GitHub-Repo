@@ -9,7 +9,7 @@ const SearchResults = ({ results } = null) => {
           <a href={item.url} target="_blank" rel="noopener noreferrer">
             {item.full_name}
           </a>
-          {item.fork && <div className="fork">Forked</div>}
+          {item.fork && <div className="forked">forked</div>}
           <p className="alert-light">{item.description}</p>
         </div>
         <div className="col">

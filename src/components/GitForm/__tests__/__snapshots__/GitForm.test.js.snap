@@ -74,9 +74,9 @@ exports[`Git Form renders without crashing 1`] = `
           ISC
         </option>
         <option
-          value="apache"
+          value="apache-2.0"
         >
-          Apache
+          Apache License 2.0
         </option>
         <option
           value="gpl"

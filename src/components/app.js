@@ -11,7 +11,6 @@ import history from "../utitilies/history";
 class App extends Component {
   submit = values => {
     this.props.performSearch(values);
-    console.log(values);
     const url = `?searchText=${values.searchText}${values.stars ? `&stars=${values.stars}` : ""}${
       values.hasForked ? "&fork=true" : ""
     }&license=${values.license ? values.license : "mit"}`;

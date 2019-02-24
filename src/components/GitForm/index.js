@@ -64,7 +64,7 @@ class GitForm extends Component {
             >
               <option value="mit">MIT</option>
               <option value="isc">ISC</option>
-              <option value="apache">Apache</option>
+              <option value="apache-2.0">Apache License 2.0</option>
               <option value="gpl">GPL</option>
             </Field>
           </div>
