@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.scss";
 
-const SearchResults = ({ results } = null) => {
+const SearchResults = ({ results } = []) => {
   if (results && results.length) {
     const resultsItems = results.map(item => (
       <div className="row" key={item.id}>
