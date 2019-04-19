@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "./style.scss";
-import logoImage from "../../assets/logo.png";
+import logoImage from "../../assets/test.jpg";
 
 const Header = () => (
   <header className="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">

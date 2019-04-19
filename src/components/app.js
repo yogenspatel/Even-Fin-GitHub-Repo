@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <h1 className="heading container display-4">Even Financial GitHub Repository Search</h1>
+        <h1 className="heading container display-4">GitHub Repository Search</h1>
         <GitForm onSubmit={this.submit} />
         <SearchResults results={this.props.searchResults} />
         <Footer />

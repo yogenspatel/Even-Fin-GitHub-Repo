@@ -9,7 +9,7 @@ exports[`Matches Header Snapshot 1`] = `
     href="#"
   >
     <img
-      src="logo.png"
+      src="test.jpg"
     />
   </a>
 </header>
