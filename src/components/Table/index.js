@@ -7,7 +7,7 @@ class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortBy: "userId",
+      sortBy: "id",
       order: "asc"
     };
   }
@@ -20,12 +20,29 @@ class Table extends React.Component {
     });
   };
 
+  toggleBGColor = () => {
+    this.setState({
+      bgColor: "#FF4500"
+    });
+  };
+
   renderTable() {
-    const { userData } = this.props;
     return (
       <table>
         <thead>
           <tr>
+            <th>
+              id
+              <select
+                name="id"
+                onChange={this.sortBy}
+                value={this.state.sortBy === "id" ? this.state.order : ""}
+              >
+                <option value="">Order</option>
+                <option value="asc">Asc</option>
+                <option value="dec">Dec</option>
+              </select>
+            </th>
             <th>
               userId
               <select
@@ -62,23 +79,33 @@ class Table extends React.Component {
                 <option value="dec">Dec</option>
               </select>
             </th>
+            <th>Row Color</th>
           </tr>
         </thead>
-        {userData && userData.length && <tbody>{this.renderRows(userData)}</tbody>}
+        <tbody>{this.renderRows()}</tbody>
       </table>
     );
   }
 
-  renderRows(data) {
-    return data.map(todo => this.renderRow(todo));
+  renderRows() {
+    const { userData } = this.props;
+    return userData && userData.length ? (
+      userData.map(todo => this.renderRow(todo))
+    ) : (
+      <div>No Results found</div>
+    );
   }
 
   renderRow(item) {
     return (
       <tr key={item.id}>
+        <td>{item.id}</td>
         <td>{item.userId}</td>
         <td>{item.title}</td>
         <td>{item.completed ? "Completed" : "Not Completed"}</td>
+        <td>
+          <button onClick={this.toggleBGColor}>Color Toggle</button>
+        </td>
       </tr>
     );
   }

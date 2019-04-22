@@ -54,24 +54,16 @@ function GetSortOrder(prop, order) {
   };
 }
 
-function trimString(s) {
-  var l = 0,
-    r = s.length - 1;
-  while (l < s.length && s[l] == " ") l++;
-  while (r > l && s[r] == " ") r -= 1;
-  return s.substring(l, r + 1);
-}
-
 function searchFor(toSearch, data) {
   if (!toSearch) {
     return data;
   }
   var results = [];
-  toSearch = trimString(toSearch); // trim it
+  toSearch = toSearch.trim(); // trim it
   for (var i = 0; i < data.length; i++) {
     let objValues = Object.values(data[i]);
     for (var key in objValues) {
-      if (toSearch && objValues[key].toString().indexOf(toSearch) != -1) {
+      if (toSearch && objValues[key].toString().indexOf(toSearch) !== -1) {
         results.push(data[i]);
       }
     }
