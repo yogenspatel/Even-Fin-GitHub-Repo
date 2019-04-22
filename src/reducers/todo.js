@@ -1,4 +1,4 @@
-import { GET_TODO_DATA, SET_LOADING_STATUS, SET_DATA_ERROR } from "../actions";
+import { GET_TODO_DATA, SET_LOADING_STATUS, SET_DATA_ERROR, SORT_DATA } from "../actions";
 
 export default (state = null, action) => {
   switch (action.type) {
@@ -8,6 +8,9 @@ export default (state = null, action) => {
       return { ...state, status: action.error };
     case GET_TODO_DATA:
       return action.payload ? action.payload : state;
+    case SORT_DATA:
+      console.log('state: ', action.sort_data);
+      return action.sort_data;
     default:
       return state;
   }

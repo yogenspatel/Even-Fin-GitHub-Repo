@@ -3,6 +3,8 @@
 export const GET_TODO_DATA = "GET_TODO_DATA";
 export const SET_LOADING_STATUS = "SET_LOADING_STATUS";
 export const SET_DATA_ERROR = "SET_DATA_ERROR";
+export const SORT_DATA = "SORT_DATA";
+
 export const LOADING_STATUS = {
   IN_PROGRESS: "IN_PROGRESS",
   ERROR: "ERROR",
@@ -28,6 +30,36 @@ function setError(error) {
   return {
     type: SET_DATA_ERROR,
     error
+  };
+}
+
+//Comparer Function
+function GetSortOrder(prop, order) {
+  return function(a, b) {
+    if (order === "dec") {
+      if (a[prop] < b[prop]) {
+        return 1;
+      } else if (a[prop] > b[prop]) {
+        return -1;
+      }
+    } else if (order === "asc") {
+      if (a[prop] > b[prop]) {
+        return 1;
+      } else if (a[prop] < b[prop]) {
+        return -1;
+      }
+    }
+    return 0;
+  };
+}
+
+export function SortBy(keyToSort, data, order) {
+  let dataToSort = data;
+  dataToSort.sort(GetSortOrder(keyToSort, order));
+  console.log("data to Sort by action: ", dataToSort);
+  return {
+    type: SORT_DATA,
+    sort_data: dataToSort
   };
 }
 

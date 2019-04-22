@@ -1,7 +1,21 @@
 import React from "react";
 import PropType from "prop-types";
+import { connect } from "react-redux";
+import { SortBy } from "../../actions";
 
 class Table extends React.Component {
+  sortByUserID = e => {
+    this.props.SortBy("userId", this.props.data, e.target.value);
+    this.forceUpdate();
+  };
+  sortByTitle = e => {
+    this.props.SortBy("title", this.props.data, e.target.value);
+    this.forceUpdate();
+  };
+  sortByCompleted = e => {
+    this.props.SortBy("completed", this.props.data, e.target.value);
+    this.forceUpdate();
+  };
   renderTable(data) {
     return (
       <table>
@@ -9,26 +23,26 @@ class Table extends React.Component {
           <tr>
             <th>
               userId
-              <select>
-                <option>Order</option>
-                <option>Asc</option>
-                <option>Dec</option>
+              <select onChange={this.sortByUserID}>
+                <option value="">Order</option>
+                <option value="asc">Asc</option>
+                <option value="dec">Dec</option>
               </select>
             </th>
             <th>
               Title
-              <select>
-                <option>Order</option>
-                <option>Asc</option>
-                <option>Dec</option>
+              <select onChange={this.sortByTitle}>
+                <option value="">Order</option>
+                <option value="asc">Asc</option>
+                <option value="dec">Dec</option>
               </select>
             </th>
             <th>
               Completed ?
-              <select>
-                <option>Order</option>
-                <option>Asc</option>
-                <option>Dec</option>
+              <select onChange={this.sortByCompleted}>
+                <option value="">Order</option>
+                <option value="asc">Asc</option>
+                <option value="dec">Dec</option>
               </select>
             </th>
           </tr>
@@ -61,11 +75,21 @@ class Table extends React.Component {
 }
 
 Table.propType = {
-  data: PropType.array
+  data: PropType.array,
+  SortBy: () => {}
 };
 
 Table.defaultProps = {
-  data: []
+  data: [],
+  SortBy: null
 };
 
-export default Table;
+function mapStateToProps(state) {
+  console.log("in component state: ", state);
+  return state;
+}
+
+export default connect(
+  mapStateToProps,
+  { SortBy }
+)(Table);
