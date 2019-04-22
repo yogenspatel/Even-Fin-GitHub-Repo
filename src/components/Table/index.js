@@ -4,12 +4,23 @@ import { connect } from "react-redux";
 import { SortBy } from "../../actions";
 
 class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sortBy: "userId",
+      order: "asc"
+    }
+  }
+
   sortBy = e => {
     this.props.SortBy(e.target.name, this.props.data, e.target.value);
+    this.setState({sortBy: e.target.name, order: e.target.value});
+    // if(e.target.name) {
+    //   e.target.value = "";
+    // }
     // this.forceUpdate();
   };
   renderTable(data) {
-    // console.log("render table: ", data);
     return (
       <table>
         <thead>
@@ -59,10 +70,7 @@ class Table extends React.Component {
     );
   }
   render() {
-    console.log("component Props: ", this.props);
     const { data } = this.props;
-    console.log("component Props data: ", data);
-    data ? console.log("typeof data: ", typeof data.data) : console.log("no data");
     if (data && data.length) {
       return <div>{this.renderTable(data)}</div>;
     }
@@ -82,9 +90,7 @@ Table.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  const data = state.toDoData;
-  // console.log("in component state: ", data.sort_data);
-  return data && data.data ? data.data : state;
+  return state.toDoData ? state.toDoData : state;
 }
 
 export default connect(

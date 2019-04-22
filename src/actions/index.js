@@ -56,7 +56,6 @@ function GetSortOrder(prop, order) {
 export function SortBy(keyToSort, data, order) {
   let dataToSort = data;
   dataToSort.sort(GetSortOrder(keyToSort, order));
-  console.log("data to Sort by action: ", dataToSort);
   return {
     type: SORT_DATA,
     sort_data: dataToSort
