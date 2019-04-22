@@ -9,7 +9,7 @@ class Table extends React.Component {
     // this.forceUpdate();
   };
   renderTable(data) {
-    console.log("render table: ", data);
+    // console.log("render table: ", data);
     return (
       <table>
         <thead>
