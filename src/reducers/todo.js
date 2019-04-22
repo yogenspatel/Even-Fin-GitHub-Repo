@@ -9,8 +9,9 @@ export default (state = null, action) => {
     case GET_TODO_DATA:
       return action.payload ? action.payload : state;
     case SORT_DATA:
-      console.log('state: ', action.sort_data);
-      return action.sort_data;
+      console.log("state: ", action.sort_data);
+      return { data: action.sort_data };
+    // return action.sort_data;
     default:
       return state;
   }

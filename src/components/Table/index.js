@@ -4,26 +4,19 @@ import { connect } from "react-redux";
 import { SortBy } from "../../actions";
 
 class Table extends React.Component {
-  sortByUserID = e => {
-    this.props.SortBy("userId", this.props.data, e.target.value);
-    this.forceUpdate();
-  };
-  sortByTitle = e => {
-    this.props.SortBy("title", this.props.data, e.target.value);
-    this.forceUpdate();
-  };
-  sortByCompleted = e => {
-    this.props.SortBy("completed", this.props.data, e.target.value);
-    this.forceUpdate();
+  sortBy = e => {
+    this.props.SortBy(e.target.name, this.props.data, e.target.value);
+    // this.forceUpdate();
   };
   renderTable(data) {
+    console.log("render table: ", data);
     return (
       <table>
         <thead>
           <tr>
             <th>
               userId
-              <select onChange={this.sortByUserID}>
+              <select name="userId" onChange={this.sortBy}>
                 <option value="">Order</option>
                 <option value="asc">Asc</option>
                 <option value="dec">Dec</option>
@@ -31,7 +24,7 @@ class Table extends React.Component {
             </th>
             <th>
               Title
-              <select onChange={this.sortByTitle}>
+              <select name="title" onChange={this.sortBy}>
                 <option value="">Order</option>
                 <option value="asc">Asc</option>
                 <option value="dec">Dec</option>
@@ -39,7 +32,7 @@ class Table extends React.Component {
             </th>
             <th>
               Completed ?
-              <select onChange={this.sortByCompleted}>
+              <select name="completed" onChange={this.sortBy}>
                 <option value="">Order</option>
                 <option value="asc">Asc</option>
                 <option value="dec">Dec</option>
@@ -66,10 +59,14 @@ class Table extends React.Component {
     );
   }
   render() {
+    console.log("component Props: ", this.props);
     const { data } = this.props;
+    console.log("component Props data: ", data);
+    data ? console.log("typeof data: ", typeof data.data) : console.log("no data");
     if (data && data.length) {
       return <div>{this.renderTable(data)}</div>;
     }
+
     return null;
   }
 }
@@ -85,8 +82,9 @@ Table.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  console.log("in component state: ", state);
-  return state;
+  const data = state.toDoData;
+  // console.log("in component state: ", data.sort_data);
+  return data && data.data ? data.data : state;
 }
 
 export default connect(
