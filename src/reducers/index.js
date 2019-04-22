@@ -1,8 +1,10 @@
-import { createStore, combineReducers } from 'redux';
-import todoReducer from './todo';
+import { createStore, combineReducers } from "redux";
+import tableReducer from "./table";
+import searchReducer from "./search";
 
 const rootReducer = combineReducers({
-  toDoData: todoReducer
+  tableData: tableReducer,
+  searchData: searchReducer
 });
 
 function configureStore(state = {}) {

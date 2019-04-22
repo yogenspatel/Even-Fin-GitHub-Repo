@@ -1,5 +1,5 @@
 import React from "react";
-import PropType from "prop-types";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { SortBy } from "../../actions";
 
@@ -9,25 +9,30 @@ class Table extends React.Component {
     this.state = {
       sortBy: "userId",
       order: "asc"
-    }
+    };
   }
 
   sortBy = e => {
-    this.props.SortBy(e.target.name, this.props.data, e.target.value);
-    this.setState({sortBy: e.target.name, order: e.target.value});
-    // if(e.target.name) {
-    //   e.target.value = "";
-    // }
-    // this.forceUpdate();
+    this.props.SortBy(e.target.name, this.props.tableData, e.target.value);
+    this.setState({
+      sortBy: e.target.name,
+      order: e.target.value
+    });
   };
-  renderTable(data) {
+
+  renderTable() {
+    const { tableData } = this.props;
     return (
       <table>
         <thead>
           <tr>
             <th>
               userId
-              <select name="userId" onChange={this.sortBy}>
+              <select
+                name="userId"
+                onChange={this.sortBy}
+                value={this.state.sortBy === "userId" ? this.state.order : ""}
+              >
                 <option value="">Order</option>
                 <option value="asc">Asc</option>
                 <option value="dec">Dec</option>
@@ -35,7 +40,11 @@ class Table extends React.Component {
             </th>
             <th>
               Title
-              <select name="title" onChange={this.sortBy}>
+              <select
+                name="title"
+                onChange={this.sortBy}
+                value={this.state.sortBy === "title" ? this.state.order : ""}
+              >
                 <option value="">Order</option>
                 <option value="asc">Asc</option>
                 <option value="dec">Dec</option>
@@ -43,7 +52,11 @@ class Table extends React.Component {
             </th>
             <th>
               Completed ?
-              <select name="completed" onChange={this.sortBy}>
+              <select
+                name="completed"
+                onChange={this.sortBy}
+                value={this.state.sortBy === "completed" ? this.state.order : ""}
+              >
                 <option value="">Order</option>
                 <option value="asc">Asc</option>
                 <option value="dec">Dec</option>
@@ -51,7 +64,7 @@ class Table extends React.Component {
             </th>
           </tr>
         </thead>
-        <tbody>{this.renderRows(data)}</tbody>
+        {tableData && tableData.length && <tbody>{this.renderRows(tableData)}</tbody>}
       </table>
     );
   }
@@ -70,27 +83,24 @@ class Table extends React.Component {
     );
   }
   render() {
-    const { data } = this.props;
-    if (data && data.length) {
-      return <div>{this.renderTable(data)}</div>;
-    }
-
-    return null;
+    return <div>{this.renderTable()}</div>;
   }
 }
 
-Table.propType = {
-  data: PropType.array,
-  SortBy: () => {}
+Table.propTypes = {
+  SortBy: () => {},
+  tableData: PropTypes.array
 };
 
 Table.defaultProps = {
-  data: [],
+  tableData: [],
   SortBy: null
 };
 
 function mapStateToProps(state) {
-  return state.toDoData ? state.toDoData : state;
+  let { tableData, searchData } = state;
+  tableData = searchData ? searchData : tableData;
+  return { tableData };
 }
 
 export default connect(

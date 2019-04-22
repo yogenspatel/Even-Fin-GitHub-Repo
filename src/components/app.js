@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getTodoData, LOADING_STATUS } from "../actions/index";
 import Table from "./Table";
-
+import Search from "./Search";
 class App extends Component {
   componentDidMount() {
     this.props.getTodoData();
@@ -26,6 +26,7 @@ class App extends Component {
 
     return (
       <div>
+        <Search data={this.props.toDoData} />
         <Table data={this.props.toDoData} />
       </div>
     );
