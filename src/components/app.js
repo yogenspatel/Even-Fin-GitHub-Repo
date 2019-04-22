@@ -1,54 +1,54 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Header from "./Header";
-import Footer from "./Footer";
-import GitForm from "./GitForm";
-import SearchResults from "./SearchResults";
-import { performSearch } from "../actions";
-import history from "../utitilies/history";
+import { getTodoData, LOADING_STATUS } from "../actions/index";
+import Table from "./Table";
 
 class App extends Component {
-  submit = values => {
-    this.props.performSearch(values);
-    const url = `?searchText=${values.searchText}${values.stars ? `&stars=${values.stars}` : ""}${
-      values.fork ? "&fork=true" : ""
-    }&license=${values.license ? values.license : "mit"}`;
-    history.push(url);
-    // TODO: Clear Form Values
-    // Clear the search results and fetch again
-  };
-
+  componentDidMount() {
+    this.props.getTodoData();
+  }
   render() {
+    if (this.props.toDoData && this.props.toDoData.status === LOADING_STATUS.IN_PROGRESS) {
+      return (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      );
+    }
+    if (this.props.toDoData && this.props.toDoData.status === LOADING_STATUS.ERROR) {
+      return (
+        <div>
+          <h1>Error...</h1>
+        </div>
+      );
+    }
+
     return (
       <div>
-        <Header />
-        <h1 className="heading container display-4">GitHub Repository Search</h1>
-        <GitForm onSubmit={this.submit} />
-        <SearchResults results={this.props.searchResults} />
-        <Footer />
+        <Table data={this.props.toDoData} />
       </div>
     );
   }
 }
 
 App.propTypes = {
-  performSearch: PropTypes.func,
-  searchResults: PropTypes.array
+  getTodoData: PropTypes.func,
+  toDoData: PropTypes.any
 };
 
 App.defaultProps = {
-  performSearch: () => {},
-  searchResults: []
+  getTodoData: () => {},
+  toDoData: []
 };
 
-function mapStatetoProps(state) {
+function mapStateToProps(state) {
   return {
-    searchResults: state.searchResults
+    toDoData: state.toDoData
   };
 }
 
 export default connect(
-  mapStatetoProps,
-  { performSearch }
+  mapStateToProps,
+  { getTodoData }
 )(App);

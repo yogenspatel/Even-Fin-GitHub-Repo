@@ -1,10 +1,8 @@
-import { createStore, combineReducers } from "redux";
-import { reducer as reduxFormReducer } from "redux-form";
-import searchReducer from "./search";
+import { createStore, combineReducers } from 'redux';
+import todoReducer from './todo';
 
 const rootReducer = combineReducers({
-  form: reduxFormReducer, // mounted under "form"
-  searchResults: searchReducer
+  toDoData: todoReducer
 });
 
 function configureStore(state = {}) {
