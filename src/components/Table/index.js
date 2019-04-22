@@ -13,7 +13,7 @@ class Table extends React.Component {
   }
 
   sortBy = e => {
-    this.props.SortBy(e.target.name, this.props.tableData, e.target.value);
+    this.props.SortBy(e.target.name, this.props.userData, e.target.value);
     this.setState({
       sortBy: e.target.name,
       order: e.target.value
@@ -21,7 +21,7 @@ class Table extends React.Component {
   };
 
   renderTable() {
-    const { tableData } = this.props;
+    const { userData } = this.props;
     return (
       <table>
         <thead>
@@ -64,7 +64,7 @@ class Table extends React.Component {
             </th>
           </tr>
         </thead>
-        {tableData && tableData.length && <tbody>{this.renderRows(tableData)}</tbody>}
+        {userData && userData.length && <tbody>{this.renderRows(userData)}</tbody>}
       </table>
     );
   }
@@ -89,18 +89,18 @@ class Table extends React.Component {
 
 Table.propTypes = {
   SortBy: () => {},
-  tableData: PropTypes.array
+  userData: PropTypes.array
 };
 
 Table.defaultProps = {
-  tableData: [],
+  userData: [],
   SortBy: null
 };
 
 function mapStateToProps(state) {
-  let { tableData, searchData } = state;
-  tableData = searchData ? searchData : tableData;
-  return { tableData };
+  let { userData, searchData } = state;
+  userData = searchData ? searchData : userData;
+  return { userData };
 }
 
 export default connect(

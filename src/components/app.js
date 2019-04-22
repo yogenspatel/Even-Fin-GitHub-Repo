@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getTodoData, LOADING_STATUS } from "../actions/index";
+import { getUserData, LOADING_STATUS } from "../actions/index";
 import Table from "./Table";
 import Search from "./Search";
 class App extends Component {
   componentDidMount() {
-    this.props.getTodoData();
+    this.props.getUserData();
   }
   render() {
-    if (this.props.toDoData && this.props.toDoData.status === LOADING_STATUS.IN_PROGRESS) {
+    if (this.props.userData && this.props.userData.status === LOADING_STATUS.IN_PROGRESS) {
       return (
         <div>
           <h1>Loading...</h1>
         </div>
       );
     }
-    if (this.props.toDoData && this.props.toDoData.status === LOADING_STATUS.ERROR) {
+    if (this.props.userData && this.props.userData.status === LOADING_STATUS.ERROR) {
       return (
         <div>
           <h1>Error...</h1>
@@ -26,30 +26,30 @@ class App extends Component {
 
     return (
       <div>
-        <Search data={this.props.toDoData} />
-        <Table data={this.props.toDoData} />
+        <Search data={this.props.userData} />
+        <Table data={this.props.userData} />
       </div>
     );
   }
 }
 
 App.propTypes = {
-  getTodoData: PropTypes.func,
-  toDoData: PropTypes.any
+  getUserData: PropTypes.func,
+  userData: PropTypes.any
 };
 
 App.defaultProps = {
-  getTodoData: () => {},
-  toDoData: []
+  getUserData: () => {},
+  userData: []
 };
 
 function mapStateToProps(state) {
   return {
-    toDoData: state.toDoData
+    userData: state.userData
   };
 }
 
 export default connect(
   mapStateToProps,
-  { getTodoData }
+  { getUserData }
 )(App);

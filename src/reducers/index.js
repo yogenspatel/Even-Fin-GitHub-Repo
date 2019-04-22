@@ -1,9 +1,9 @@
 import { createStore, combineReducers } from "redux";
-import tableReducer from "./table";
+import tableReducer from "./user";
 import searchReducer from "./search";
 
 const rootReducer = combineReducers({
-  tableData: tableReducer,
+  userData: tableReducer,
   searchData: searchReducer
 });
 

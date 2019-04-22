@@ -96,7 +96,7 @@ export function SearchData(dataToSearch, data) {
   };
 }
 
-export function getTodoData() {
+export function getUserData() {
   return dispatch => {
     dispatch(setLoadingStatus(LOADING_STATUS.IN_PROGRESS));
     return fetch(todosService)
