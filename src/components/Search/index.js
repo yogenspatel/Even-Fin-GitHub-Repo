@@ -33,7 +33,9 @@ class Search extends React.Component {
           onChange={this.updateSearchValue}
           value={this.state.searchInput}
         />
-        <button onClick={this.toggleGreenColor}>Green {"<-->"} Black</button>
+        <button className="btn btn-info" onClick={this.toggleGreenColor}>
+          Green {"<-->"} Black
+        </button>
       </React.Fragment>
     );
   }
@@ -41,7 +43,7 @@ class Search extends React.Component {
 
 Search.propTypes = {
   SearchData: PropTypes.func,
-  data: PropTypes.object,
+  data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   toggleGreenColor: PropTypes.func
 };
 

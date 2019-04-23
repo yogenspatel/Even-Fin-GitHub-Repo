@@ -5,7 +5,7 @@ export const SET_LOADING_STATUS = "SET_LOADING_STATUS";
 export const SET_DATA_ERROR = "SET_DATA_ERROR";
 export const SORT_DATA = "SORT_DATA";
 export const SEARCH_DATA = "SEARCH_DATA";
-export const TOGGLE_GREEN_COLOR = "TOGGLE_GREEN_COLOR";
+export const TOGGLE_CLASS = "TOGGLE_CLASS";
 
 export const LOADING_STATUS = {
   IN_PROGRESS: "IN_PROGRESS",
@@ -55,18 +55,6 @@ function GetSortOrder(prop, order) {
   };
 }
 
-function compareObjects(o1, o2) {
-  var k = "";
-  for (k in o1) if (o1[k] !== o2[k]) return false;
-  for (k in o2) if (o1[k] !== o2[k]) return false;
-  return true;
-}
-
-function itemExists(haystack, needle) {
-  for (var i = 0; i < haystack.length; i++) if (compareObjects(haystack[i], needle)) return true;
-  return false;
-}
-
 function searchFor(toSearch, data) {
   if (!toSearch) {
     return data;
@@ -74,24 +62,32 @@ function searchFor(toSearch, data) {
   var results = [];
   toSearch = toSearch.trim(); // trim it
   for (var i = 0; i < data.length; i++) {
-    let objValues = Object.values(data[i]);
-    for (var key in objValues) {
-      if (toSearch && objValues[key].toString().indexOf(toSearch) !== -1) {
-        if (!itemExists(results, data[i])) results.push(data[i]);
-      }
+    if (toSearch && data[i]["title"].indexOf(toSearch) !== -1) {
+      results.push(data[i]);
     }
   }
   // console.log("in search for: ", results);
   return results;
 }
 
+/**
+ * Action to toggle class
+ * @param {String} className
+ */
 export function toggleGreenColor(className) {
   return {
-    type: TOGGLE_GREEN_COLOR,
+    type: TOGGLE_CLASS,
     className
   };
 }
 
+/**
+ * Action to sort by key
+ * @param {String} keyToSort - Key to Sort
+ * @param {Object} data - Data Object to Sort
+ * @param {String} order - Order by Asc/Dec
+ * @returns {Object} - sorted data of type SORT_DATA
+ */
 export function SortBy(keyToSort, data, order) {
   let dataToSort = data;
   dataToSort.sort(GetSortOrder(keyToSort, order));
@@ -101,6 +97,11 @@ export function SortBy(keyToSort, data, order) {
   };
 }
 
+/**
+ * Action to Search data
+ * @param {String} dataToSearch  - String to Search
+ * @param {object} data  - Data Object
+ */
 export function SearchData(dataToSearch, data) {
   const searchData = searchFor(dataToSearch, data);
   return {
@@ -109,6 +110,9 @@ export function SearchData(dataToSearch, data) {
   };
 }
 
+/**
+ * Action to get user data
+ */
 export function getUserData() {
   return dispatch => {
     dispatch(setLoadingStatus(LOADING_STATUS.IN_PROGRESS));

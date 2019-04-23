@@ -35,7 +35,7 @@ class App extends Component {
 
 App.propTypes = {
   getUserData: PropTypes.func,
-  userData: PropTypes.any
+  userData: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
 App.defaultProps = {

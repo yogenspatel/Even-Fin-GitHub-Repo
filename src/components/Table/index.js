@@ -27,12 +27,13 @@ class Table extends React.Component {
 
   renderTable() {
     return (
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>
               id
               <select
+                className="custom-select"
                 name="id"
                 onChange={this.sortBy}
                 value={this.state.sortBy === "id" ? this.state.order : ""}
@@ -45,6 +46,7 @@ class Table extends React.Component {
             <th>
               userId
               <select
+                className="custom-select"
                 name="userId"
                 onChange={this.sortBy}
                 value={this.state.sortBy === "userId" ? this.state.order : ""}
@@ -57,6 +59,7 @@ class Table extends React.Component {
             <th>
               Title
               <select
+                className="custom-select"
                 name="title"
                 onChange={this.sortBy}
                 value={this.state.sortBy === "title" ? this.state.order : ""}
@@ -69,6 +72,7 @@ class Table extends React.Component {
             <th>
               Completed ?
               <select
+                className="custom-select"
                 name="completed"
                 onChange={this.sortBy}
                 value={this.state.sortBy === "completed" ? this.state.order : ""}
@@ -112,7 +116,9 @@ class Table extends React.Component {
         <td>{item.title}</td>
         <td>{item.completed ? "Completed" : "Not Completed"}</td>
         <td>
-          <button onClick={this.toggleOrangeColor}>Orange {"<-->"} Black </button>
+          <button className="btn btn-info" onClick={this.toggleOrangeColor}>
+            Orange {"<-->"} Black{" "}
+          </button>
         </td>
       </tr>
     );
@@ -124,7 +130,7 @@ class Table extends React.Component {
 
 Table.propTypes = {
   SortBy: () => {},
-  userData: PropTypes.array,
+  userData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   searchData: PropTypes.object
 };
 
