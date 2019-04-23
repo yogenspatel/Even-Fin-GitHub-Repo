@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Component renders correctly App Component with Mock Data 1`] = `
+<div>
+  <Connect(Search)
+    data={
+      Array [
+        Object {
+          "id": 2,
+          "title": "this is test",
+        },
+        Object {
+          "id": 1,
+          "title": "delectus aut autem",
+        },
+        Object {
+          "id": 3,
+          "title": "quis ut nam facilis et officia qui",
+        },
+        Object {
+          "id": 4,
+          "title": "quo laboriosam deleniti aut qui",
+        },
+      ]
+    }
+  />
+  <Connect(Table) />
+</div>
+`;
+
+exports[`App Component renders correctly App Component with error 1`] = `
+<div>
+  <h1>
+    Error...
+  </h1>
+</div>
+`;
+
+exports[`App Component renders correctly App Component without mock data 1`] = `
+<div>
+  <h1>
+    Loading...
+  </h1>
+</div>
+`;

@@ -146,6 +146,7 @@ function mapStateToProps(state) {
   return { userData, searchData };
 }
 
+export { Table };
 export default connect(
   mapStateToProps,
   { SortBy }

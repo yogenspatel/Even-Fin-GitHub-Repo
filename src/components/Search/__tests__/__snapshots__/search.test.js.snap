@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search Component renders correctly Search Component with Mock Data 1`] = `
+<Fragment>
+  <input
+    id="search"
+    name="search"
+    onChange={[Function]}
+    placeholder="Search records"
+    value=""
+  />
+  <button
+    className="btn btn-info"
+    onClick={[Function]}
+  >
+    Green 
+    &lt;--&gt;
+     Black
+  </button>
+</Fragment>
+`;

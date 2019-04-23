@@ -53,6 +53,8 @@ Search.defaultProps = {
   toggleGreenColor: () => {}
 };
 
+export { Search };
+
 export default connect(
   null,
   { SearchData, toggleGreenColor }

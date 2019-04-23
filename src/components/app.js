@@ -27,7 +27,7 @@ class App extends Component {
     return (
       <div>
         <Search data={this.props.userData} />
-        <Table data={this.props.userData} />
+        <Table />
       </div>
     );
   }
@@ -48,6 +48,8 @@ function mapStateToProps(state) {
     userData: state.userData
   };
 }
+
+export { App };
 
 export default connect(
   mapStateToProps,
