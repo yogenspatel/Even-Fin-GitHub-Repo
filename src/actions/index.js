@@ -5,6 +5,7 @@ export const SET_LOADING_STATUS = "SET_LOADING_STATUS";
 export const SET_DATA_ERROR = "SET_DATA_ERROR";
 export const SORT_DATA = "SORT_DATA";
 export const SEARCH_DATA = "SEARCH_DATA";
+export const TOGGLE_GREEN_COLOR = "TOGGLE_GREEN_COLOR";
 
 export const LOADING_STATUS = {
   IN_PROGRESS: "IN_PROGRESS",
@@ -20,7 +21,7 @@ function setLoadingStatus(status) {
   };
 }
 
-function setTodoData(data) {
+function setUserData(data) {
   return {
     type: GET_TODO_DATA,
     payload: data
@@ -54,6 +55,18 @@ function GetSortOrder(prop, order) {
   };
 }
 
+function compareObjects(o1, o2) {
+  var k = "";
+  for (k in o1) if (o1[k] !== o2[k]) return false;
+  for (k in o2) if (o1[k] !== o2[k]) return false;
+  return true;
+}
+
+function itemExists(haystack, needle) {
+  for (var i = 0; i < haystack.length; i++) if (compareObjects(haystack[i], needle)) return true;
+  return false;
+}
+
 function searchFor(toSearch, data) {
   if (!toSearch) {
     return data;
@@ -64,11 +77,19 @@ function searchFor(toSearch, data) {
     let objValues = Object.values(data[i]);
     for (var key in objValues) {
       if (toSearch && objValues[key].toString().indexOf(toSearch) !== -1) {
-        results.push(data[i]);
+        if (!itemExists(results, data[i])) results.push(data[i]);
       }
     }
   }
+  // console.log("in search for: ", results);
   return results;
+}
+
+export function toggleGreenColor(className) {
+  return {
+    type: TOGGLE_GREEN_COLOR,
+    className
+  };
 }
 
 export function SortBy(keyToSort, data, order) {
@@ -97,7 +118,7 @@ export function getUserData() {
         return response.json();
       })
       .then(data => {
-        dispatch(setTodoData(data));
+        dispatch(setUserData(data));
       })
       .catch(error => {
         dispatch(setLoadingStatus(LOADING_STATUS.ERROR));

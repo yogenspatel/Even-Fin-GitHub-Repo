@@ -1,0 +1,16 @@
+.orange {
+    td:first-child,
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4) {
+        color: #FF4500;
+    }
+}
+.green {
+    td:first-child,
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4) {
+        color: #008000;
+    }
+}

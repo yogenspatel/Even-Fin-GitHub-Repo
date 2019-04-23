@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { SortBy } from "../../actions";
+import "./style.scss";
 
 class Table extends React.Component {
   constructor(props) {
@@ -20,10 +21,8 @@ class Table extends React.Component {
     });
   };
 
-  toggleBGColor = () => {
-    this.setState({
-      bgColor: "#FF4500"
-    });
+  toggleOrangeColor = () => {
+    this.state.class ? this.setState({ class: "" }) : this.setState({ class: "orange" });
   };
 
   renderTable() {
@@ -79,7 +78,7 @@ class Table extends React.Component {
                 <option value="dec">Dec</option>
               </select>
             </th>
-            <th>Row Color</th>
+            <th>Orange {"<-->"} Black</th>
           </tr>
         </thead>
         <tbody>{this.renderRows()}</tbody>
@@ -89,22 +88,31 @@ class Table extends React.Component {
 
   renderRows() {
     const { userData } = this.props;
-    return userData && userData.length ? (
-      userData.map(todo => this.renderRow(todo))
+    return !(userData && userData.length) ? (
+      <tr>
+        <td>No Results found</td>
+      </tr>
     ) : (
-      <div>No Results found</div>
+      userData.map(todo => this.renderRow(todo))
     );
+  }
+
+  getClassName(id) {
+    if (id % 2 !== 0) return this.state.class;
+    else if (id % 2 === 0 && this.props.searchData && this.props.searchData.className) {
+      return this.props.searchData.className;
+    }
   }
 
   renderRow(item) {
     return (
-      <tr key={item.id}>
+      <tr key={item.id} className={this.getClassName(item.id)}>
         <td>{item.id}</td>
         <td>{item.userId}</td>
         <td>{item.title}</td>
         <td>{item.completed ? "Completed" : "Not Completed"}</td>
         <td>
-          <button onClick={this.toggleBGColor}>Color Toggle</button>
+          <button onClick={this.toggleOrangeColor}>Orange {"<-->"} Black </button>
         </td>
       </tr>
     );
@@ -116,18 +124,20 @@ class Table extends React.Component {
 
 Table.propTypes = {
   SortBy: () => {},
-  userData: PropTypes.array
+  userData: PropTypes.array,
+  searchData: PropTypes.object
 };
 
 Table.defaultProps = {
   userData: [],
-  SortBy: null
+  SortBy: null,
+  searchData: {}
 };
 
 function mapStateToProps(state) {
   let { userData, searchData } = state;
-  userData = searchData ? searchData : userData;
-  return { userData };
+  userData = searchData && searchData.search_data ? searchData.search_data : userData;
+  return { userData, searchData };
 }
 
 export default connect(

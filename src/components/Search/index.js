@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { SearchData } from "../../actions/index";
+import { SearchData, toggleGreenColor } from "../../actions/index";
 import PropTypes from "prop-types";
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchInput: ""
+      searchInput: "",
+      class: "green"
     };
   }
   updateSearchValue = e => {
@@ -16,30 +17,41 @@ class Search extends React.Component {
     });
     setTimeout(() => this.props.SearchData(this.state.searchInput, this.props.data), 200);
   };
+
+  toggleGreenColor = () => {
+    this.state.class ? this.setState({ class: "" }) : this.setState({ class: "green" });
+    this.props.toggleGreenColor(this.state.class);
+  };
+
   render() {
     return (
-      <input
-        name="search"
-        id="search"
-        placeholder="Search records"
-        onChange={this.updateSearchValue}
-        value={this.state.searchInput}
-      />
+      <React.Fragment>
+        <input
+          name="search"
+          id="search"
+          placeholder="Search records"
+          onChange={this.updateSearchValue}
+          value={this.state.searchInput}
+        />
+        <button onClick={this.toggleGreenColor}>Green {"<-->"} Black</button>
+      </React.Fragment>
     );
   }
 }
 
 Search.propTypes = {
   SearchData: PropTypes.func,
-  data: PropTypes.array
+  data: PropTypes.object,
+  toggleGreenColor: PropTypes.func
 };
 
 Search.defaultProps = {
   SearchData: () => {},
-  data: []
+  data: {},
+  toggleGreenColor: () => {}
 };
 
 export default connect(
   null,
-  { SearchData }
+  { SearchData, toggleGreenColor }
 )(Search);
