@@ -3,7 +3,7 @@ import './style.scss';
 
 const Footer = () => (
   <footer>
-    <p>&copy; {new Date().getFullYear()} Even Financial, Inc. - CONFIDENTIAL</p>
+    <p>&copy; {new Date().getFullYear()} Yogen Patel</p>
   </footer>
 );
 
