@@ -14,9 +14,9 @@ class Search extends React.Component {
   updateSearchValue = e => {
     this.setState({
       searchInput: e.target.value
-    });
-    setTimeout(() => this.props.SearchData(this.state.searchInput, this.props.data), 200);
-  };
+    },
+    () => this.props.SearchData(this.state.searchInput, this.props.data)
+    )};
 
   toggleGreenColor = () => {
     this.state.class ? this.setState({ class: "" }) : this.setState({ class: "green" });
