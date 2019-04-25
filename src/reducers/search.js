@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 import { SEARCH_DATA, TOGGLE_CLASS } from "../actions";
 
 export default (state = null, action) => {

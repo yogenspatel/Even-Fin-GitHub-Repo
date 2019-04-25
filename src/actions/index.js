@@ -6,6 +6,7 @@ export const SET_DATA_ERROR = "SET_DATA_ERROR";
 export const SORT_DATA = "SORT_DATA";
 export const SEARCH_DATA = "SEARCH_DATA";
 export const TOGGLE_CLASS = "TOGGLE_CLASS";
+export const PAGINATED_DATA = "PAGINATED_DATA";
 
 export const LOADING_STATUS = {
   IN_PROGRESS: "IN_PROGRESS",
@@ -22,6 +23,7 @@ function setLoadingStatus(status) {
 }
 
 function setUserData(data) {
+  // const paginatedUserData = setPaginatedData(1, 10, data.length, data);
   return {
     type: GET_TODO_DATA,
     payload: data
@@ -81,6 +83,33 @@ export function toggleGreenColor(className) {
   };
 }
 
+function setPaginatedData(currentPage, pageSize, noOfItems, data) {
+  const totalPages = noOfItems / pageSize;
+  const dataForCurrentPage = [];
+  if (currentPage < 1) {
+    currentPage = 1;
+  }
+  if (currentPage > totalPages) {
+    currentPage = totalPages;
+  }
+  console.log("currentPage: ", currentPage);
+  for (var i = (currentPage - 1) * pageSize; i < currentPage * pageSize; i++) {
+    dataForCurrentPage.push(data[i]);
+  }
+
+  console.log("Data for Pagination: ", dataForCurrentPage);
+  return dataForCurrentPage;
+}
+
+export function getPaginatedData(currentPage, pageSize, noOfItems, data) {
+  const paginatedData = setPaginatedData(currentPage, pageSize, noOfItems, data);
+  return {
+    type: PAGINATED_DATA,
+    payload: paginatedData,
+    pageSize,
+    noOfItems
+  };
+}
 /**
  * Action to sort by key
  * @param {String} keyToSort - Key to Sort
@@ -104,9 +133,18 @@ export function SortBy(keyToSort, data, order) {
  */
 export function SearchData(dataToSearch, data) {
   const searchData = searchFor(dataToSearch, data);
+  const pageSize = 10;
+  const noOfItems = searchData.length;
+  const paginatedSearchData = setPaginatedData(1, pageSize, noOfItems, data);
+  // return {
+  //   type: SEARCH_DATA,
+  //   search_data: paginatedSearchData
+  // };
   return {
-    type: SEARCH_DATA,
-    search_data: searchData
+    type: PAGINATED_DATA,
+    payload: paginatedSearchData,
+    pageSize,
+    noOfItems
   };
 }
 

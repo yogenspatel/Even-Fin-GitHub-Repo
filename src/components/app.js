@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { getUserData, LOADING_STATUS } from "../actions/index";
 import Table from "./Table";
 import Search from "./Search";
+import Pagination from "./Pagination";
+
 class App extends Component {
   componentDidMount() {
     this.props.getUserData();
@@ -28,6 +30,7 @@ class App extends Component {
       <div>
         <Search data={this.props.userData} />
         <Table />
+        <Pagination data={this.props.userData} />
       </div>
     );
   }
