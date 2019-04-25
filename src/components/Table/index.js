@@ -141,10 +141,9 @@ Table.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  console.log("table state: ", state);
   let { userData, searchData, paginatedData } = state;
   userData =
-  paginatedData && paginatedData.paginated_data ? paginatedData.paginated_data : userData;
+    paginatedData && paginatedData.paginated_data ? paginatedData.paginated_data : userData;
 
   // userData = searchData && searchData.search_data ? searchData.search_data : userData;
   return { userData, searchData };

@@ -96,12 +96,11 @@ function setPaginatedData(currentPage, pageSize, noOfItems, data) {
   for (var i = (currentPage - 1) * pageSize; i < currentPage * pageSize; i++) {
     dataForCurrentPage.push(data[i]);
   }
-
-  console.log("Data for Pagination: ", dataForCurrentPage);
   return dataForCurrentPage;
 }
 
-export function getPaginatedData(currentPage, pageSize, noOfItems, data) {
+export function getPaginatedData(currentPage, pageSize, data) {
+  const noOfItems = data.length;
   const paginatedData = setPaginatedData(currentPage, pageSize, noOfItems, data);
   return {
     type: PAGINATED_DATA,
@@ -133,18 +132,27 @@ export function SortBy(keyToSort, data, order) {
  */
 export function SearchData(dataToSearch, data) {
   const searchData = searchFor(dataToSearch, data);
+  return {
+    type: SEARCH_DATA,
+    search_data: searchData
+  };
+}
+
+/**
+ * Action to Search data
+ * @param {String} dataToSearch  - String to Search
+ * @param {object} data  - Data Object
+ */
+export function SearchPaginatedData(dataToSearch, data) {
+  const searchData = searchFor(dataToSearch, data);
   const pageSize = 10;
   const noOfItems = searchData.length;
-  const paginatedSearchData = setPaginatedData(1, pageSize, noOfItems, data);
-  // return {
-  //   type: SEARCH_DATA,
-  //   search_data: paginatedSearchData
-  // };
+  const paginatedSearchData = setPaginatedData(1, pageSize, noOfItems, searchData);
   return {
     type: PAGINATED_DATA,
     payload: paginatedSearchData,
-    pageSize,
-    noOfItems
+    noOfItems,
+    pageSize
   };
 }
 

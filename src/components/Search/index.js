@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { SearchData, toggleGreenColor } from "../../actions/index";
+import { SearchData, toggleGreenColor, SearchPaginatedData } from "../../actions/index";
 import PropTypes from "prop-types";
 
 class Search extends React.Component {
@@ -18,6 +18,7 @@ class Search extends React.Component {
       },
       () => {
         this.props.SearchData(this.state.searchInput, this.props.data);
+        this.props.SearchPaginatedData(this.state.searchInput, this.props.data);
       }
     );
   };
@@ -47,12 +48,14 @@ class Search extends React.Component {
 
 Search.propTypes = {
   SearchData: PropTypes.func,
+  SearchPaginatedData: PropTypes.func,
   data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   toggleGreenColor: PropTypes.func
 };
 
 Search.defaultProps = {
   SearchData: () => {},
+  SearchPaginatedData: () => {},
   data: {},
   toggleGreenColor: () => {}
 };
@@ -61,5 +64,5 @@ export { Search };
 
 export default connect(
   null,
-  { SearchData, toggleGreenColor }
+  { SearchData, toggleGreenColor, SearchPaginatedData }
 )(Search);
