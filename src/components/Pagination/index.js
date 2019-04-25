@@ -79,7 +79,8 @@ function mapStateToProps(state) {
   return {
     paginatedData: state.paginatedData,
     userData: state.userData,
-    searchData: state.searchData ? state.searchData.search_data : null
+    searchData:
+      state.paginatedData && state.paginatedData.searchData ? state.paginatedData.searchData : null
   };
 }
 

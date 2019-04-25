@@ -2,7 +2,7 @@ export const GET_TODO_DATA = "GET_TODO_DATA";
 export const SET_LOADING_STATUS = "SET_LOADING_STATUS";
 export const SET_DATA_ERROR = "SET_DATA_ERROR";
 export const SORT_DATA = "SORT_DATA";
-export const SEARCH_DATA = "SEARCH_DATA";
+// export const SEARCH_DATA = "SEARCH_DATA";
 export const TOGGLE_CLASS = "TOGGLE_CLASS";
 export const PAGINATED_DATA = "PAGINATED_DATA";
 
@@ -105,6 +105,7 @@ export function getPaginatedData(currentPage, pageSize, data) {
   return {
     type: PAGINATED_DATA,
     payload: paginatedData,
+    searchData: data,
     pageSize,
     noOfItems
   };
@@ -130,13 +131,13 @@ export function SortBy(keyToSort, data, order) {
  * @param {String} dataToSearch  - String to Search
  * @param {object} data  - Data Object
  */
-export function SearchData(dataToSearch, data) {
-  const searchData = searchFor(dataToSearch, data);
-  return {
-    type: SEARCH_DATA,
-    search_data: searchData
-  };
-}
+// export function SearchData(dataToSearch, data) {
+//   const searchData = searchFor(dataToSearch, data);
+//   return {
+//     type: SEARCH_DATA,
+//     search_data: searchData
+//   };
+// }
 
 /**
  * Action to Search data
@@ -151,6 +152,7 @@ export function SearchPaginatedData(dataToSearch, data) {
   return {
     type: PAGINATED_DATA,
     payload: paginatedSearchData,
+    searchData,
     noOfItems,
     pageSize
   };
