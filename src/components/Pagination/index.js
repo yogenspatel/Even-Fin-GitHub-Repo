@@ -37,27 +37,70 @@ class Pagination extends React.Component {
     }
     return null;
   }
-  updateCurrentPage = currentPage => {
+  updateCurrentPage = (e, currentPage) => {
+    e.preventDefault();
     this.setState({ currentPage }, () => {
       const dataForPagination = this.props.searchData ? this.props.searchData : this.props.userData;
       this.props.getPaginatedData(currentPage, this.state.pageSize, dataForPagination);
     });
   };
 
+  arrowClicked = (e, direction) => {
+    e.preventDefault();
+    let currentPage = this.state.currentPage;
+    if (direction === "prev" && currentPage !== 1) {
+      currentPage = currentPage - 1;
+    } else if (direction === "next" && currentPage < this.state.totalPages) {
+      currentPage = currentPage + 1;
+    }
+    this.updateCurrentPage(e, currentPage);
+  };
+
   renderTotalPages = () => {
     let items = [];
+    let prevClassName = "page-item";
+    prevClassName = this.state.currentPage === 1 ? `${prevClassName} disabled` : "";
+    let nextClassName = "page-item";
+    nextClassName =
+      this.state.currentPage === this.state.totalPages ? `${nextClassName} disabled` : "";
+    items.push(
+      <li className={prevClassName} onClick={e => this.arrowClicked(e, "prev")}>
+        <a className="page-link" href="#">
+          <span aria-hidden="true">&laquo;</span>
+          <span className="sr-only">Previous</span>
+        </a>
+      </li>
+    );
     for (let i = 0; i < this.state.totalPages; i++) {
       let currentPage = i + 1;
       items.push(
-        <li key={currentPage} onClick={() => this.updateCurrentPage(currentPage)}>
-          {currentPage}
+        <li
+          key={currentPage}
+          className="page-item"
+          onClick={e => this.updateCurrentPage(e, currentPage)}
+        >
+          <a className="page-link" href="#">
+            {currentPage}
+          </a>
         </li>
       );
     }
-    return <ul>{items.map(item => item)}</ul>;
+    items.push(
+      <li className={nextClassName} onClick={e => this.arrowClicked(e, "next")}>
+        <a className="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span className="sr-only">Next</span>
+        </a>
+      </li>
+    );
+    return <ul className="pagination">{items.map(item => item)}</ul>;
   };
   render() {
-    return <div>This is pagination {this.renderTotalPages()}</div>;
+    return (
+      <div className="container">
+        <nav className="row">{this.renderTotalPages()}</nav>
+      </div>
+    );
   }
 }
 
