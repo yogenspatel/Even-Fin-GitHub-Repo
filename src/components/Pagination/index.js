@@ -27,22 +27,13 @@ class Pagination extends React.Component {
     ) {
       nextProps.getPaginatedData(prevState.currentPage, prevState.pageSize, nextProps.data);
       return { data: nextProps.data };
-    } else if (
-      nextProps &&
-      nextProps.paginatedData &&
-      nextProps.paginatedData.paginated_data &&
-      nextProps.paginatedData.paginated_data.length &&
-      nextProps.paginatedData.paginated_data.length !== prevState.data.length
-    ) {
-      if (nextProps.paginatedData) {
-        let totalPages = Math.ceil(
-          nextProps.paginatedData.noOfItems / nextProps.paginatedData.pageSize
-        );
-        return {
-          totalPages
-        };
-      }
-      return null;
+    } else if (nextProps && nextProps.paginatedData) {
+      let totalPages = Math.ceil(
+        nextProps.paginatedData.noOfItems / nextProps.paginatedData.pageSize
+      );
+      return {
+        totalPages
+      };
     }
     return null;
   }
@@ -74,14 +65,14 @@ Pagination.propTypes = {
   getPaginatedData: PropTypes.func,
   data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   searchData: PropTypes.object,
-  userData: PropTypes.array
+  userData: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
 Pagination.defaultProps = {
   getPaginatedData: () => {},
   data: {},
   searchData: {},
-  userData: []
+  userData: {}
 };
 
 function mapStateToProps(state) {

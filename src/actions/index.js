@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 export const GET_TODO_DATA = "GET_TODO_DATA";
 export const SET_LOADING_STATUS = "SET_LOADING_STATUS";
 export const SET_DATA_ERROR = "SET_DATA_ERROR";
@@ -84,7 +82,7 @@ export function toggleGreenColor(className) {
 }
 
 function setPaginatedData(currentPage, pageSize, noOfItems, data) {
-  const totalPages = noOfItems / pageSize;
+  const totalPages = Math.ceil(noOfItems / pageSize);
   const dataForCurrentPage = [];
   if (currentPage < 1) {
     currentPage = 1;
@@ -92,9 +90,11 @@ function setPaginatedData(currentPage, pageSize, noOfItems, data) {
   if (currentPage > totalPages) {
     currentPage = totalPages;
   }
-  console.log("currentPage: ", currentPage);
+
   for (var i = (currentPage - 1) * pageSize; i < currentPage * pageSize; i++) {
-    dataForCurrentPage.push(data[i]);
+    if (data[i]) {
+      dataForCurrentPage.push(data[i]);
+    }
   }
   return dataForCurrentPage;
 }
