@@ -1,11 +1,19 @@
+/**
+ * Renders Form Component
+ * Contains following fields:
+ * **Text** field - a text box for full-text search queries, maps to the `q` query parameter.
+ * **Stars** - a text box that maps to the `stars` qualifier.
+ * **License** - a dropdown that maps to the `license` qualifier, and includes the MIT, ISC, Apache and GPL license types.
+ * **Include Forked** - a checkbox that sets the `fork` qualifier to "true"
+ */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
-// import * as actions from "../../actions/index";
-// import history from "../../utitilies/history";
+import { loadFromQueryParams } from "../../actions";
 import "./style.scss";
 
 const validate = values => {
@@ -18,6 +26,7 @@ const validate = values => {
   return errors;
 };
 
+// eslint-disable-next-line react/prop-types
 const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
   <div>
     <input {...input} placeholder={label} type={type} className="form-control" />
@@ -28,22 +37,11 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
 );
 
 class GitForm extends Component {
-  /* handleFormSubmit(formProps) {
-    console.log("Form Props:: ", formProps);
-    console.log(this.props);
-    this.props.performSearch(formProps);
-    const url = `?searchText=${formProps.searchText}${
-      formProps.stars ? `&stars=${formProps.stars}` : ""
-    }${formProps.hasForked ? "&fork=true" : ""}&license=${
-      formProps.license ? formProps.license : "mit"
-    }`;
-    history.push(url);
-    // TODO: Clear Form Values
-    // Clear the search results and fetch again
-  } */
-
+  componentDidMount() {
+    this.props.loadFromQueryParams(); // Get Query Params on component mount
+  }
   render() {
-    const { handleSubmit, pristine, submitting } = this.props;
+    const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit} className="container">
         <div className="row">
@@ -64,17 +62,16 @@ class GitForm extends Component {
             >
               <option value="mit">MIT</option>
               <option value="isc">ISC</option>
-              <option value="apache">Apache</option>
+              <option value="apache-2.0">Apache License 2.0</option>
               <option value="gpl">GPL</option>
             </Field>
           </div>
           <div className="col custom-control custom-checkbox">
-            <Field name="hasForked" component="input" type="checkbox" />{" "}
-            <label>Include Forked</label>
+            <Field name="fork" component="input" type="checkbox" /> <label>Include Forked</label>
           </div>
         </div>
         <div className="col text-center form-group">
-          <button type="submit" disabled={pristine || submitting} className="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             SEARCH
           </button>
         </div>
@@ -86,6 +83,7 @@ class GitForm extends Component {
 GitForm.propTypes = {
   handleSubmit: PropTypes.func,
   performSearch: PropTypes.func,
+  loadFromQueryParams: PropTypes.func,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool
 };
@@ -93,14 +91,25 @@ GitForm.propTypes = {
 GitForm.defaultProps = {
   handleSubmit: () => {},
   performSearch: () => {},
-  pristine: false,
-  submitting: false
+  loadFromQueryParams: () => {},
+  pristine: true,
+  submitting: true
 };
 
 export { GitForm, validate };
 
-export default reduxForm({
+function mapStatetoProps(state) {
+  return {
+    initialValues: state.searchResults ? state.searchResults.queryParams : null
+  };
+}
+const GitFormWithValidator = reduxForm({
   form: "gitform",
-  fields: ["searchText", "stars", "license", "hasForked"],
+  fields: ["searchText", "stars", "license", "fork"],
   validate
 })(GitForm);
+
+export default connect(
+  mapStatetoProps,
+  { loadFromQueryParams }
+)(GitFormWithValidator);

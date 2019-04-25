@@ -1,5 +1,4 @@
-import { createStore } from "redux";
-import { combineReducers } from "redux";
+import { createStore, combineReducers } from "redux";
 import { reducer as reduxFormReducer } from "redux-form";
 import searchReducer from "./search";
 

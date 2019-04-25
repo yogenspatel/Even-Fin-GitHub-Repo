@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.scss";
 
-const SearchResults = ({ results } = null) => {
+const SearchResults = ({ results } = []) => {
   if (results && results.length) {
     const resultsItems = results.map(item => (
       <div className="row" key={item.id}>
@@ -31,7 +31,12 @@ const SearchResults = ({ results } = null) => {
     );
   }
 
-  return <div>No Search Results found</div>;
+  return (
+    <div className="container search-container">
+      <hr />
+      <p className="col text-center alert-light">No Search Results found</p>
+    </div>
+  );
 };
 
 export default SearchResults;
