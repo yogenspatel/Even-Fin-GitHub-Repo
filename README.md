@@ -1,4 +1,4 @@
-# Even Financial GitHub Repository Search
+# GitHub Repository Search
 
 ### Getting Started
 
